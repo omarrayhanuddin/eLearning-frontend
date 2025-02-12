@@ -125,7 +125,7 @@ const CourseTabs = ({ activeTab, handleChangeTab, isAuthenticated, modules, cour
     { label: "Modules", component: <ModulesTab isBlocked={isBlocked} has_enrolled={has_enrolled} modules={modules} isAuthenticated={isAuthenticated} /> },
   ];
 
-  if (isAuthenticated) {
+  if (isAuthenticated&&has_enrolled) {
     tabs.push({ label: "Live Chat", component: <LiveChat courseId={courseId} /> });
     if (user.email === instructor) {
       tabs.push({ label: "Enrolled Students", component: <EnrolledStudents courseId={courseId} /> });
