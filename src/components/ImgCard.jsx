@@ -14,8 +14,10 @@ import { useAuth } from '../auth/AuthContext';
 export default function ImgMediaCard({ course, isDetail = false }) {
     const { user } = useAuth();
     const navigate = useNavigate();
+    const [loading, setLoading] = React.useState(false)
     
     const handleEnroll = async (courseId) => {
+        setLoading(true)
         try {
             const response = await axios.post(
                 `/api/courses/courses/${courseId}/enroll/`
@@ -27,6 +29,8 @@ export default function ImgMediaCard({ course, isDetail = false }) {
             }
         } catch (err) {
             console.error('Error fetching teachers:', err);
+        }finally{
+            setLoading(false)
         }
     }
 
@@ -71,6 +75,7 @@ export default function ImgMediaCard({ course, isDetail = false }) {
                         color='secondary' 
                         variant='contained' 
                         size="small" 
+                        loading={loading}
                         onClick={() => handleEnroll(course.id)}>Enroll</Button> :
                         <small>
                             Login to enroll.
